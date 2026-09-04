@@ -2,7 +2,7 @@
 #include "Std_types.h"
 #include <util/delay.h>
 
-
+//portB howa el control port w portA howa el data port
 	
 void LCD_init(void)
 {
