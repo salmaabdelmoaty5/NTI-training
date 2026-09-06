@@ -14,7 +14,6 @@ int main(void)
 	DIO_voidSetPinDirection(PORTB, PIN2, INPUT);
 	DIO_voidSetPinValue(PORTB, PIN2, HIGH);
 	EXTI_voidInit();
-	sei();
 	s8 current_led = 0;
 	while (1)
 	{
