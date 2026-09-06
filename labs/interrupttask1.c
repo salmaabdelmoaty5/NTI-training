@@ -20,7 +20,7 @@ int main(void)
 	DIO_voidSetPinDirection(PORTD, PIN3, INPUT);
 
 	EXTI_voidInit();
-	sei();
+	
 
 	while (1)
 	{
