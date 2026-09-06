@@ -16,7 +16,6 @@ int main(void)
 	EXTI_voidInit();
 	sei();
 	s8 current_led = 0;
-
 	while (1)
 	{
 		for (u8 i = 0; i < 8; i++)
@@ -28,8 +27,7 @@ int main(void)
 			else
 			{
 				DIO_voidSetPinValue(PORTC, i, LOW);
-			}
-		}
+		}}
 
 		_delay_ms(200);
 		current_led += direction;
