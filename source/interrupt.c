@@ -16,5 +16,5 @@ void EXTI_voidInit(void)
 	//hena baftah el PIE LL INTO WL INT1
 	SET_BIT(GICR, INT0);
 	SET_BIT(GICR, INT1);
-	SET_BIT(SREG, 7);
+	SET_BIT(SREG, 7); //da el gie
 }
