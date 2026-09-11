@@ -1,4 +1,6 @@
 #include "i2c.h"
+#include "Std_types.h"
+#include <util/delay.h>
 
 /* Initialize I2C Master Mode (100kHz bit rate at 16MHz clock) */
 void I2C_Init(void)
