@@ -50,7 +50,7 @@ void LCD_SendString(u8 *str){
 		i++;
 	}
 }
-	
+	// BONUS FUNCTIONS
 void GoToXY(u8 x, u8 y)
 {
 	u8 Local_u8Address = 0;
