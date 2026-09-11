@@ -43,6 +43,6 @@ u8 SPI_GetChar(void)
 u8 SPI_Transceive(u8 copy_u8Data)
 {
     SPDR = copy_u8Data;
-    while (!GET_BIT(SPSR, 7));
+    while (!GET_BIT(SPSR, PIN7));
     return SPDR;
 }
