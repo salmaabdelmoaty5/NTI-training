@@ -7,7 +7,8 @@
 #define LED_PORT     PORTB
 #define LED_PIN      0
  
-#define POT_CHANNEL  0   void TIMER0_CompareMatch_ISR(void)
+#define POT_CHANNEL  0   
+void TIMER0_CompareMatch_ISR(void)
 {
     static u8 ledState = LOW;
  
