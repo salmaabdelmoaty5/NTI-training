@@ -5,37 +5,34 @@
 #include "keypad.h"
 
 void KEYPAD_init(void) {
-	DIO_voidSetPortDirection(PORTD, 0x0F);
-	DIO_voidSetPortDirection(PORTC, 0x00);
-	
-	// Enable internal pull-up resistors for input rows (PC0 - PC3)
-	DIO_voidSetPinValue(PORTC, 0, HIGH);
-	DIO_voidSetPinValue(PORTC, 1, HIGH);
-	DIO_voidSetPinValue(PORTC, 2, HIGH);
-	DIO_voidSetPinValue(PORTC, 3, HIGH);
+	 DIO_voidSetPinDirection(PORTC , PIN0 ,INPUT);
+	 DIO_voidSetPinDirection(PORTC , PIN1 ,INPUT);
+	 DIO_voidSetPinDirection(PORTC , PIN2 ,INPUT);
+	DIO_voidSetPinDirection(PORTC , PIN3 ,INPUT);
+	 DIO_voidSetPinDirection(PORTC , PIN4 ,OUTPUT);
+	 DIO_voidSetPinDirection(PORTC , PIN5 ,OUTPUT);
+	 DIO_voidSetPinDirection(PORTC , PIN6 ,OUTPUT);
+	 DIO_voidSetPinDirection(PORTC , PIN7 ,OUTPUT);
+	 DIO_voidSetPortValue(PORTC,0B11111111);
 }
 
-char KEYPAD_getPressedKey(void) {
-	const u8 keypad_matrix[4][4] = {
-		{'7', '8', '9', '/'},
-		{'4', '5', '6', '*'},
-		{'1', '2', '3', '-'},
-		{'C', '0', '=', '+'}
-	};
+char KEYPAD_keypressed(void) {
+	const u8 keypad_matrix[4][4] = {{'7', '8', '9', '/'},{'4', '5', '6', '*'},{'1', '2', '3', '-'},{'C', '0', '=', '+'}};
+    u8 rows [4]={PIN0 , PIN1 , PIN2 , PIN3 };
+	u8 colomns[4]={PIN4 , PIN5 , PIN6 , PIN7 };
+		
+		for (u8 column=0 ; column<4 ; column++){
+	 for (u8 j =0 ; j<4; j++ ){
+		 DIO_voidSetPinValue(PORTC, colomns[j], HIGH);
+	 }
+	   DIO_voidSetPinValue(PORTC, colomns[column], LOW);
 
-	u8 col, row;
-	u8 col_patterns[4] = {0x0E, 0x0D, 0x0B, 0x07};
-
-	for (col = 0; col < 4; col++) {
-		DIO_voidSetPortValue(PORTD, col_patterns[col]);
-		_delay_ms(2);
-	
-	
-		if (DIO_u8ReadPinValue(PORTC, 0) == 0) { row = 0; _delay_ms(20); while(DIO_u8ReadPinValue(PORTC, 0) == 0); return keypad_matrix[row][col]; }
-		if (DIO_u8ReadPinValue(PORTC, 1) == 0) { row = 1; _delay_ms(20); while(DIO_u8ReadPinValue(PORTC, 1) == 0); return keypad_matrix[row][col]; }
-		if (DIO_u8ReadPinValue(PORTC, 2) == 0) { row = 2; _delay_ms(20); while(DIO_u8ReadPinValue(PORTC, 2) == 0); return keypad_matrix[row][col]; }
-		if (DIO_u8ReadPinValue(PORTC, 3) == 0) { row = 3; _delay_ms(20); while(DIO_u8ReadPinValue(PORTC, 3) == 0); return keypad_matrix[row][col]; }
+	for ( u8 row = 0; row < 4; row++) {
+		if (( DIO_u8ReadPinValue(PORTC,rows[row]))==LOW){
+			 while (DIO_u8ReadPinValue(PORTC, rows[row]) == LOW) // polling 
+			return keypad_matrix [row][column];}
 	}
+		}
 
 	return '\0';
 }
